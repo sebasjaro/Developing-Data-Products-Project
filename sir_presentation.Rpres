@@ -1,0 +1,50 @@
+SIR Model for Spread of Disease
+========================================================
+author: Sebastian Jaroszewicz
+date:   10/26/20202
+autosize: true
+
+========================================================
+This presentation is part of the project: Shiny Application and Reproducible Pitch
+of **Developing Data Products course**. 
+
+It is an R Presentation generated with RStudio. 
+
+The assignment was to develop a web application using R and the Shiny package. The application was named **SIR Model for Spread of Disease** and can be found at:
+
+https://sebasjaro.shinyapps.io/Project/
+
+
+Introduction
+========================================================
+Compartmental models simplify the mathematical modelling of infectious diseases. The population is assigned to compartments. People may progress between compartments.
+The sir model is one of the simplest of this class and is made up of three compartments.
+
+- **S:** The number of susceptible individuals. When a susceptible individual contracts the disease they are moved to the infectious compartment.
+- **I:** The number of infectious individuals. These are individuals who have been infected and are capable of infecting susceptible individuals.
+- **R:** represents the number of individuals who have been infected and have either recovered from the disease or died.
+
+This model is reasonably predictive for infectious diseases that are transmitted from human to human, and where recovery confers lasting resistance
+
+Application
+========================================================
+The application shows a plot with the temporal evolution of the relative populations of the three compartments of the SIR model. An initial proportion of infected is considered equal to 10% of the population.
+
+The application allows you to interact by adjusting the beta parameters that represents the average number of contacts per person per time and gamma that represent the transition rate between I and R.
+
+R code 
+========================================================
+
+```{r}
+
+ SIR_model <- function(times, yinit, pars){
+      with(as.list(c(yinit,pars)), {
+         dusc <- birth - beta*Infected*Susc  - death*Susc
+         dInfected  <-  beta*Infected*Susc - recovery*Infected - death*Infected
+          dRecovered <-  recovery*Infected - death*Recovered
+          return(list(c(dSusc, dInfected, dRecovered)))})
+       results <- ode(func = SIR_model, times = times, y = yinit, parms = pars)
+       results <- as.data.frame(results)
+       return(results)
+}
+```
