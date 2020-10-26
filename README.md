@@ -5,5 +5,5 @@ This peer assessed assignment has two parts. First, you will create a Shiny appl
 The Shiny app source code is available at
 https://sebasjaro.shinyapps.io/Project/
 
-Presentation is available via RPubs:
+Presentation is available via RPubs: https://rpubs.com/sebasjaro/SIR_model
 
